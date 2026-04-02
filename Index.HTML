@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Del Sun Ocean Conservatory</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;font-weight:300;background:#fff;color:#1a1a2e;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+:root{
+  --navy:#0d2240;--navy-lt:#1e4a78;--gold:#b8922a;--gold-lt:#d4aa4a;
+  --silver:#f5f6f7;--rule:#e2e6ea;--muted:#6b7280;--max:1200px;--pad:clamp(1.5rem,5vw,5rem)
+}
+.container{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.eyebrow{display:inline-flex;align-items:center;gap:.65rem;font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem}
+.eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:500;line-height:1.2;color:var(--navy)}
+.section-title em{font-style:italic;color:var(--gold)}
+.section-body{font-size:.97rem;line-height:1.9;color:var(--muted);margin-top:1.2rem}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* NAV */
+.nav{position:fixed;inset:0 0 auto;z-index:200;background:rgba(255,255,255,.97);border-bottom:1px solid var(--rule);backdrop-filter:blur(8px)}
+.nav-inner{max-width:var(--max);margin:0 auto;padding:0 var(--pad);height:72px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:500;color:var(--navy)}
+.nav-logo span{color:var(--gold);font-style:italic}
+.nav-links{display:flex;align-items:center;list-style:none;gap:2.2rem}
+.nav-links a{font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .25s}
+.nav-links a:hover{color:var(--navy)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-donate{background:var(--navy)!important;color:#fff!important;padding:.6rem 1.5rem;border-radius:2px}
+.nav-donate::after{display:none!important}
+.nav-donate:hover{background:var(--navy-lt)!important}
+
+/* HERO */
+.hero{margin-top:72px;height:calc(100vh - 72px);min-height:600px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.hero-left{background:var(--navy);display:flex;flex-direction:column;justify-content:center;padding:clamp(3rem,7vw,7rem) clamp(2rem,5vw,5rem) clamp(3rem,7vw,7rem) var(--pad);position:relative;overflow:hidden}
+.hero-left::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 120% 80% at -10% 110%,rgba(184,146,42,.18) 0%,transparent 55%),radial-gradient(ellipse 80% 60% at 110% -10%,rgba(30,74,120,.6) 0%,transparent 60%)}
+.hero-left-content{position:relative;z-index:1}
+.hero-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-lt);display:flex;align-items:center;gap:.7rem;margin-bottom:1.8rem;animation:fadeUp .9s .1s both}
+.hero-eyebrow::before{content:'';width:24px;height:1px;background:var(--gold-lt)}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,5vw,4.2rem);font-weight:500;line-height:1.12;color:#fff;animation:fadeUp .9s .22s both}
+.hero h1 em{font-style:italic;color:var(--gold-lt)}
+.hero-sub{margin-top:1.6rem;font-size:.97rem;line-height:1.85;color:rgba(255,255,255,.6);max-width:420px;animation:fadeUp .9s .36s both}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;margin-top:2.6rem;animation:fadeUp .9s .48s both}
+.btn{display:inline-block;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2rem;border-radius:2px;cursor:pointer;transition:all .22s}
+.btn-gold{background:var(--gold);color:#fff;border:1.5px solid var(--gold)}
+.btn-gold:hover{background:var(--gold-lt);border-color:var(--gold-lt)}
+.btn-outline-white{background:transparent;color:rgba(255,255,255,.85);border:1.5px solid rgba(255,255,255,.3)}
+.btn-outline-white:hover{border-color:rgba(255,255,255,.7);color:#fff}
+.btn-outline-navy{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
+.btn-outline-navy:hover{background:var(--navy);color:#fff}
+.btn-navy{background:var(--navy);color:#fff;border:1.5px solid var(--navy)}
+.btn-navy:hover{background:var(--navy-lt);border-color:var(--navy-lt)}
+.hero-right{position:relative;overflow:hidden;background:linear-gradient(135deg,#0a2a50,#0e3d6e 30%,#0a4f72 60%,#0d6e82 80%,#1a8fa0)}
+.hero-right::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 60% 70%,rgba(14,107,148,.5) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 30% 30%,rgba(26,143,160,.35) 0%,transparent 50%)}
+.hero-stat-bar{position:absolute;bottom:0;left:0;right:0;z-index:2;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,255,255,.12);animation:fadeUp .9s .6s both}
+.hero-stat{padding:1.5rem 1.8rem;border-right:1px solid rgba(255,255,255,.12);background:rgba(13,34,64,.55);backdrop-filter:blur(10px)}
+.hero-stat:last-child{border-right:none}
+.hero-stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:500;color:#fff;line-height:1;margin-bottom:.3rem}
+.hero-stat-label{font-size:.68rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* TRUST BAR */
+.trust-bar{border-bottom:1px solid var(--rule);background:var(--silver)}
+.trust-inner{max-width:var(--max);margin:0 auto;padding:1.4rem var(--pad);display:flex;align-items:center;gap:3rem;flex-wrap:wrap}
+.trust-label{font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.trust-divider{width:1px;height:22px;background:var(--rule)}
+.trust-partners{display:flex;gap:2.5rem;align-items:center;flex-wrap:wrap}
+.trust-partner{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:500;color:#aab2be;transition:color .2s}
+.trust-partner:hover{color:var(--navy)}
+
+/* MISSION */
+.mission{padding:clamp(5rem,10vw,9rem) 0}
+.mission-inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,7rem);align-items:center}
+.mission-image{position:relative;aspect-ratio:4/5;border-radius:3px;overflow:hidden;background:linear-gradient(135deg,#0a2a50,#0e4a72 40%,#0a7090 70%,#1a9faf);box-shadow:0 30px 80px rgba(13,34,64,.18)}
+.mission-image-accent{position:absolute;bottom:-1px;left:-1px;right:-1px;height:45%;background:linear-gradient(to top,rgba(13,34,64,.85),transparent)}
+.mission-img-caption{position:absolute;bottom:2rem;left:2rem;right:2rem;z-index:2}
+.mission-img-caption p{font-size:.78rem;color:rgba(255,255,255,.55);letter-spacing:.08em}
+.mission-img-caption strong{display:block;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;color:rgba(255,255,255,.9);margin-bottom:.2rem}
+.mission-badge{position:absolute;top:2rem;right:2rem;background:var(--gold);color:#fff;font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;padding:.4rem .8rem;border-radius:2px}
+.mission-highlights{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.2rem}
+.mh-item{padding:1.4rem 1.5rem;background:var(--silver);border-left:3px solid var(--gold);border-radius:0 3px 3px 0}
+.mh-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:500;color:var(--navy);line-height:1}
+.mh-label{font-size:.72rem;font-weight:500;color:var(--muted);margin-top:.25rem}
+.mission-cta{margin-top:2.4rem;display:flex;gap:1rem}
+
+/* STATS */
+.stats-band{background:var(--navy);padding:5rem 0;position:relative;overflow:hidden}
+.stats-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 120% at 50% 120%,rgba(184,146,42,.1),transparent 60%)}
+.stats-inner{display:grid;grid-template-columns:repeat(4,1fr);position:relative}
+.stat-item{padding:2.5rem;text-align:center;border-right:1px solid rgba(255,255,255,.08);position:relative}
+.stat-item:last-child{border-right:none}
+.stat-item::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--gold);transition:width .35s}
+.stat-item:hover::after{width:40px}
+.stat-num{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,4vw,3.4rem);font-weight:500;color:#fff;line-height:1}
+.stat-unit{font-size:1.6rem;color:var(--gold-lt)}
+.stat-label{font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:.6rem}
+.stat-desc{font-size:.82rem;color:rgba(255,255,255,.28);margin-top:.35rem}
+
+/* PROGRAMS */
+.programs{padding:clamp(5rem,10vw,9rem) 0;background:var(--silver)}
+.programs-header{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:4rem}
+.programs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.prog-card{background:#fff;border-radius:3px;overflow:hidden;box-shadow:0 2px 20px rgba(13,34,64,.06);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column}
+.prog-card:hover{transform:translateY(-6px);box-shadow:0 16px 50px rgba(13,34,64,.12)}
+.prog-card-image{height:180px;position:relative;overflow:hidden}
+.prog-card-body{padding:2rem;flex:1;display:flex;flex-direction:column}
+.prog-tag{font-size:.65rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
+.prog-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:500;color:var(--navy);margin-bottom:.8rem;line-height:1.3}
+.prog-card p{font-size:.87rem;line-height:1.75;color:var(--muted);flex:1}
+.prog-card-footer{margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between}
+.prog-link{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);display:flex;align-items:center;gap:.4rem;transition:gap .2s,color .2s}
+.prog-link:hover{gap:.7rem;color:var(--gold)}
+.prog-link::after{content:'→'}
+.prog-status{font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:#2e7d32;padding:.2rem .55rem;border-radius:20px}
+.pc-1{background:linear-gradient(135deg,#0a2a50,#0e4a72,#0a7090)}
+.pc-2{background:linear-gradient(135deg,#0a3a28,#0e6042,#1a9060)}
+.pc-3{background:linear-gradient(135deg,#1a2050,#3a2080,#5a30a0)}
+.pc-4{background:linear-gradient(135deg,#2a1a0a,#5a3a10,#8a5a20)}
+.pc-5{background:linear-gradient(135deg,#0a1a3a,#1a3a6a,#2a5a9a)}
+.pc-6{background:linear-gradient(135deg,#1a0a0a,#3a1a1a,#6a2020)}
+.pc-overlay{position:absolute;inset:0;background:linear-gradient(to bottom right,rgba(0,0,0,.2),transparent 50%)}
+.pc-icon{position:absolute;bottom:1rem;right:1.2rem;font-size:2.4rem;opacity:.5}
+
+/* APPROACH */
+.approach{padding:clamp(5rem,10vw,9rem) 0}
+.approach-inner{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,7rem);align-items:center}
+.approach-steps{margin-top:2.5rem}
+.step{display:grid;grid-template-columns:48px 1fr;gap:1.5rem;align-items:start;padding:1.8rem 0;border-bottom:1px solid var(--rule)}
+.step:first-child{border-top:1px solid var(--rule)}
+.step-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:500;color:var(--gold);line-height:1;padding-top:.1rem}
+.step-content h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:500;color:var(--navy);margin-bottom:.4rem}
+.step-content p{font-size:.87rem;line-height:1.72;color:var(--muted)}
+.approach-visual{position:relative}
+.approach-main-img{aspect-ratio:3/4;border-radius:3px;overflow:hidden;background:linear-gradient(160deg,#0a1f3c,#0e3d6e 40%,#1a6080 70%,#1a9fa8);box-shadow:0 30px 80px rgba(13,34,64,.2);position:relative}
+.approach-main-img::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 60%,rgba(26,159,168,.3),transparent 70%),radial-gradient(ellipse 50% 40% at 20% 20%,rgba(14,61,110,.5),transparent 55%)}
+.approach-card{position:absolute;bottom:-2rem;left:-2.5rem;background:#fff;border-radius:3px;padding:1.5rem 1.8rem;box-shadow:0 10px 40px rgba(13,34,64,.12);width:220px}
+.approach-card-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:500;color:var(--navy);line-height:1}
+.approach-card-label{font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
+.approach-card-bar{margin-top:1rem;height:3px;background:var(--rule);border-radius:2px;overflow:hidden}
+.approach-card-fill{height:100%;width:78%;background:var(--gold);border-radius:2px}
+
+/* TESTIMONIAL */
+.testimonial{background:var(--navy);padding:7rem 0;position:relative;overflow:hidden}
+.testimonial::before{content:'\201C';position:absolute;top:-4rem;left:calc(var(--pad) - 1rem);font-family:'Playfair Display',serif;font-size:28rem;color:rgba(255,255,255,.03);line-height:1;user-select:none;pointer-events:none}
+.testimonial-inner{max-width:780px;margin:0 auto;padding:0 var(--pad)}
+.testimonial-quote{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,3vw,1.9rem);font-weight:400;font-style:italic;line-height:1.6;color:rgba(255,255,255,.9);margin-bottom:2.5rem}
+.testimonial-author{display:flex;align-items:center;gap:1.2rem}
+.author-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--navy-lt),#1a8090);border:2px solid rgba(255,255,255,.15);flex-shrink:0}
+.author-name{font-size:.87rem;font-weight:500;color:#fff}
+.author-role{font-size:.75rem;color:rgba(255,255,255,.45);margin-top:.15rem}
+
+/* INVOLVE */
+.involve{padding:clamp(5rem,10vw,9rem) 0}
+.involve-header{text-align:center;max-width:560px;margin:0 auto 4rem}
+.involve-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.involve-card{border:1px solid var(--rule);border-radius:3px;padding:2.5rem;transition:border-color .3s,box-shadow .3s;position:relative;overflow:hidden}
+.involve-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.involve-card:hover{border-color:transparent;box-shadow:0 10px 40px rgba(13,34,64,.1)}
+.involve-card:hover::before{transform:scaleX(1)}
+.involve-icon{width:52px;height:52px;border-radius:50%;background:var(--silver);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.5rem;transition:background .3s}
+.involve-card:hover .involve-icon{background:rgba(184,146,42,.1)}
+.involve-card h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:500;color:var(--navy);margin-bottom:.7rem}
+.involve-card p{font-size:.87rem;line-height:1.75;color:var(--muted);margin-bottom:1.5rem}
+.involve-link{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:.4rem;transition:gap .2s}
+.involve-link:hover{gap:.7rem}
+.involve-link::after{content:'→'}
+
+/* DONATE */
+.donate-section{background:var(--silver);padding:clamp(4rem,8vw,7rem) 0}
+.donate-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:5rem;align-items:center}
+.donate-seals{display:flex;gap:.8rem;margin-top:2rem;flex-wrap:wrap}
+.seal{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--rule);padding:.35rem .8rem;border-radius:20px}
+.donate-form{background:#fff;border-radius:3px;padding:2.5rem;box-shadow:0 4px 30px rgba(13,34,64,.07)}
+.donate-form h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:500;color:var(--navy);margin-bottom:1.5rem}
+.freq-toggle{display:flex;border:1.5px solid var(--rule);border-radius:2px;overflow:hidden;margin-bottom:1rem}
+.freq-btn{flex:1;padding:.6rem;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:none;background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.freq-btn.active{background:var(--navy);color:#fff}
+.amount-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-bottom:1rem}
+.amt-btn{padding:.75rem .5rem;border-radius:2px;border:1.5px solid var(--rule);background:transparent;cursor:pointer;font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:var(--navy);transition:all .2s}
+.amt-btn:hover{border-color:var(--navy)}
+.amt-btn.active{background:var(--navy);border-color:var(--navy);color:#fff}
+.custom-input{width:100%;padding:.75rem 1rem;border:1.5px solid var(--rule);border-radius:2px;font-family:'Jost',sans-serif;font-size:.9rem;color:var(--navy);margin-bottom:1.2rem;transition:border-color .2s;outline:none}
+.custom-input:focus{border-color:var(--navy)}
+.custom-input::placeholder{color:#bbb}
+.donate-submit{width:100%;padding:1rem;background:var(--gold);color:#fff;border:none;font-family:'Jost',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;border-radius:2px;cursor:pointer;transition:background .22s}
+.donate-submit:hover{background:var(--gold-lt)}
+.donate-note{text-align:center;margin-top:1rem;font-size:.72rem;color:var(--muted)}
+
+/* FOOTER */
+footer{background:#080f1c;padding:5rem 0 2.5rem;border-top:1px solid rgba(255,255,255,.05)}
+.footer-main{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem}
+.footer-brand-logo{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:500;color:#fff;margin-bottom:1rem;display:block}
+.footer-brand-logo span{color:var(--gold-lt);font-style:italic}
+.footer-brand p{font-size:.84rem;line-height:1.75;color:rgba(255,255,255,.35);margin-bottom:1.8rem}
+.footer-social{display:flex;gap:.7rem}
+.fsocial{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:.78rem;color:rgba(255,255,255,.4);transition:all .2s;font-weight:600}
+.fsocial:hover{border-color:var(--gold-lt);color:var(--gold-lt)}
+.footer-col h5{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:1.4rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.7rem}
+.footer-col ul a{font-size:.85rem;color:rgba(255,255,255,.3);transition:color .2s}
+.footer-col ul a:hover{color:rgba(255,255,255,.75)}
+.footer-bottom{padding-top:2rem;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{font-size:.77rem;color:rgba(255,255,255,.2)}
+.footer-legal{display:flex;gap:1.5rem}
+.footer-legal a{font-size:.72rem;color:rgba(255,255,255,.2);transition:color .2s}
+.footer-legal a:hover{color:rgba(255,255,255,.55)}
+
+@media(max-width:1024px){
+  .hero{grid-template-columns:1fr;height:auto}
+  .hero-right{height:320px}
+  .hero-left{padding:5rem var(--pad)}
+  .mission-inner,.approach-inner,.donate-inner{grid-template-columns:1fr}
+  .mission-image{max-width:440px}
+  .approach-visual{display:none}
+  .programs-header{grid-template-columns:1fr;gap:1rem}
+  .footer-main{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .stat-item{border-right:none;border-bottom:1px solid rgba(255,255,255,.08)}
+  .programs-grid,.involve-grid{grid-template-columns:1fr}
+  .hero-stat-bar{grid-template-columns:1fr}
+  .hero-stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}
+  .footer-main{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+  .mission-highlights{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Del <span>Sun</span></a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#mission">Mission</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#impact">Impact</a></li>
+        <li><a href="#involve">Get Involved</a></li>
+        <li><a href="#donate" class="nav-donate">Donate</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-left-content">
+      <p class="hero-eyebrow">Ocean Conservatory · Est. 2018</p>
+      <h1>Protecting the<br><em>World's Oceans</em><br>for Future Generations</h1>
+      <p class="hero-sub">Del Sun is a 501(c)(3) nonprofit dedicated to marine conservation through science-led research, policy advocacy, and global community action.</p>
+      <div class="hero-actions">
+        <a href="#donate" class="btn btn-gold">Support Our Work</a>
+        <a href="#programs" class="btn btn-outline-white">Our Programs</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-bar">
+      <div class="hero-stat"><div class="hero-stat-num">2.4M</div><div class="hero-stat-label">Acres Protected</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">38</div><div class="hero-stat-label">Countries Active</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">190K</div><div class="hero-stat-label">Global Volunteers</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-inner">
+    <span class="trust-label">Partners &amp; Recognition</span>
+    <div class="trust-divider"></div>
+    <div class="trust-partners">
+      <span class="trust-partner">IUCN</span>
+      <span class="trust-partner">UNEP</span>
+      <span class="trust-partner">Scripps Institution</span>
+      <span class="trust-partner">National Geographic Society</span>
+      <span class="trust-partner">Oceana</span>
+      <span class="trust-partner">WWF</span>
+    </div>
+  </div>
+</div>
+
+<section class="mission" id="mission">
+  <div class="container">
+    <div class="mission-inner">
+      <div class="mission-image reveal">
+        <div class="mission-image-accent"></div>
+        <div class="mission-badge">Active Research</div>
+        <div class="mission-img-caption">
+          <strong>Coral Triangle Expedition, 2024</strong>
+          <p>Del Sun research team · Sulawesi Sea</p>
+        </div>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Our Mission</span>
+        <h2 class="section-title">A Healthier Ocean<br>is <em>Possible</em></h2>
+        <p class="section-body">More than 70% of our planet is ocean — yet less than 3% is formally protected. At Del Sun, we believe the fate of the ocean and the fate of humanity are inseparable.</p>
+        <p class="section-body">We work alongside marine scientists, coastal communities, and policymakers to reverse decades of damage and restore the biodiversity that sustains all life on Earth.</p>
+        <div class="mission-highlights">
+          <div class="mh-item"><div class="mh-num">847</div><div class="mh-label">Species Monitored</div></div>
+          <div class="mh-item"><div class="mh-num">96%</div><div class="mh-label">Funds to Programs</div></div>
+          <div class="mh-item"><div class="mh-num">17</div><div class="mh-label">Years of Research</div></div>
+          <div class="mh-item"><div class="mh-num">$42M</div><div class="mh-label">Conservation Funded</div></div>
+        </div>
+        <div class="mission-cta">
+          <a href="#programs" class="btn btn-navy">Explore Our Work</a>
+          <a href="#involve" class="btn btn-outline-navy">Join Us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-band" id="impact">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item reveal"><div class="stat-num">2.4<span class="stat-unit">M</span></div><div class="stat-label">Acres Protected</div><div class="stat-desc">Marine sanctuaries established</div></div>
+      <div class="stat-item reveal"><div class="stat-num">847</div><div class="stat-label">Species Monitored</div><div class="stat-desc">Across 6 major ocean zones</div></div>
+      <div class="stat-item reveal"><div class="stat-num">38</div><div class="stat-label">Countries Reached</div><div class="stat-desc">Global advocacy presence</div></div>
+      <div class="stat-item reveal"><div class="stat-num">190<span class="stat-unit">K</span></div><div class="stat-label">Active Volunteers</div><div class="stat-desc">Ocean defenders worldwide</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="programs" id="programs">
+  <div class="container">
+    <div class="programs-header reveal">
+      <div>
+        <span class="eyebrow">What We Do</span>
+        <h2 class="section-title">Conservation<br><em>Programs</em></h2>
+      </div>
+      <div>
+        <p class="section-body" style="margin-top:0">Every Del Sun program is built on peer-reviewed science and deep community partnership — from the deep sea to coastal shores.</p>
+        <a href="#" class="btn btn-outline-navy" style="margin-top:1.5rem;display:inline-block">View All Programs</a>
+      </div>
+    </div>
+    <div class="programs-grid">
+      <div class="prog-card reveal">
+        <div class="prog-card-image pc-1"><div class="pc-overlay"></div><div class="pc-icon">🌊</div></div>
+        <div class="prog-card-body">
+          <div class="prog-tag">Marine Science</div>
+          <h3>Deep Blue Research Initiative</h3>
+          <p>Cataloguing species and mapping deep-sea habitats that have never been formally documented, directly informing global conservation policy.</p>
+          <div class="prog-card-footer"><a href="#" class="prog-link">Learn More</a><span class="prog-status">Active</span></div>
+        </div>
+      </div>
+      <div class="prog-card reveal">
+        <div class="prog-card-image pc-2"><div class="pc-overlay"></div><div class="pc-icon">🐠</div></div>
+        <div class="prog-card-body">
+          <div class="prog-tag">Habitat Restoration</div>
+          <h3>Reef Restoration Program</h3>
+          <p>Cultivating coral nurseries and transplanting healthy colonies to damaged reefs, with local dive communities providing long-term stewardship.</p>
+          <div class="prog-card-footer"><a href="#" class="prog-link">Learn More</a><span class="prog-status">Active</span></div>
+        </div>
+      </div>
+      <div class="prog-card reveal">
+        <div class="prog-card-image pc-3"><div class="pc-overlay"></div><div class="pc-icon">🌿</div></div>
+        <div class="prog-card-body">
+          <div class="prog-tag">Community Action</div>
+          <h3>Plastic-Free Shores</h3>
+          <p>Targeting ocean plastic at its source — combining shoreline restoration with upstream policy advocacy and consumer awareness campaigns.</p>
+          <div class="prog-card-footer"><a href="#" class="prog-link">Learn More</a><span class="prog-status">Active</span></div>
+        </div>
+      </div>
+      <div class="prog-card reveal">
+        <div class="prog-card-image pc-4"><div class="pc-overlay"></div><div class="pc-icon">🐋</div></div>
+        <div class="prog-card-body">
+          <div class="prog-tag">Wildlife Protection</div>
+          <h3>Marine Species Protection</h3>
+          <p>Championing anti-poaching measures, shipping lane reform, and monitoring of endangered marine species migration corridors across 6 ocean zones.</p>
+          <div class="prog-card-footer"><a href="#" class="prog-link">Learn More</a><span class="prog-status">Active</span></div>
+        </div>
+      </div>
+      <div class="prog-card reveal">
+        <div class="prog-card-image pc-5"><div class="pc-overlay"></div><div class="pc-icon">🌡️</div></div>
+        <div class="prog-card-body">
+          <div class="prog-tag">Science &amp; Policy</div>
+          <h3>Ocean Climate Monitoring</h3>
+          <p>Publishing critical acidification and temperature datasets used by international policymakers to shape climate commitments affecting ocean health.</p>
+          <div class="prog-card-footer"><a href="#" class="prog-link">Learn More</a><span class="prog-status">Active</span></div>
+        </div>
+      </div>
+      <div class="prog-card reveal">
+        <div class="prog-card-image pc-6"><div class="pc-overlay"></div><div class="pc-icon">📚</div></div>
+        <div class="prog-card-body">
+          <div class="prog-tag">Education</div>
+          <h3>Youth Ocean Education</h3>
+          <p>Reaching 50,000+ students annually through hands-on coastal programs that build the next generation of marine conservation leaders.</p>
+          <div class="prog-card-footer"><a href="#" class="prog-link">Learn More</a><span class="prog-status">Active</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="approach">
+  <div class="container">
+    <div class="approach-inner">
+      <div class="reveal">
+        <span class="eyebrow">Our Approach</span>
+        <h2 class="section-title">Science-Led.<br>Community-<em>Driven.</em></h2>
+        <p class="section-body">Every program follows a rigorous four-step framework — ensuring donor funds create lasting, measurable impact in the ecosystems that need it most.</p>
+        <div class="approach-steps">
+          <div class="step"><div class="step-num">01</div><div class="step-content"><h4>Research &amp; Assessment</h4><p>Our scientists establish baseline ecosystem data before any intervention, building the evidence base for targeted, effective action.</p></div></div>
+          <div class="step"><div class="step-num">02</div><div class="step-content"><h4>Community Partnership</h4><p>We co-design programs with local fishing communities, governments, and NGOs to ensure cultural fit and long-term ownership.</p></div></div>
+          <div class="step"><div class="step-num">03</div><div class="step-content"><h4>Targeted Intervention</h4><p>Science-backed initiatives are deployed with clear milestones, timelines, and measurable outcomes tied to ecological recovery.</p></div></div>
+          <div class="step"><div class="step-num">04</div><div class="step-content"><h4>Long-term Monitoring</h4><p>We track outcomes for years after each initiative, publishing open-access data and adjusting strategy based on results.</p></div></div>
+        </div>
+      </div>
+      <div class="approach-visual reveal">
+        <div class="approach-main-img"></div>
+        <div class="approach-card">
+          <div class="approach-card-num">78%</div>
+          <div class="approach-card-label">Recovery Rate — restored reefs</div>
+          <div class="approach-card-bar"><div class="approach-card-fill"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonial">
+  <div class="testimonial-inner reveal">
+    <blockquote class="testimonial-quote">"Working with Del Sun changed my understanding of what conservation can achieve. I dove into a reef I helped restore — watching life return to a place that was barren just two years before. The scientific rigor behind every decision is what sets this organization apart."</blockquote>
+    <div class="testimonial-author">
+      <div class="author-avatar"></div>
+      <div>
+        <div class="author-name">Dr. Maria Soto</div>
+        <div class="author-role">Marine Biologist · Del Sun Field Research Lead, Philippines</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="involve" id="involve">
+  <div class="container">
+    <div class="involve-header reveal">
+      <span class="eyebrow">Take Action</span>
+      <h2 class="section-title">Get <em>Involved</em></h2>
+      <p class="section-body" style="margin-top:.8rem">There is a role for everyone — whether you're a scientist, a student, a diver, or someone who simply cares about the ocean's future.</p>
+    </div>
+    <div class="involve-grid">
+      <div class="involve-card reveal">
+        <div class="involve-icon">🤿</div>
+        <h3>Volunteer</h3>
+        <p>Join a beach restoration event, a reef monitoring dive, or a local advocacy campaign. Our volunteer network spans 38 countries.</p>
+        <a href="#" class="involve-link">Find Opportunities</a>
+      </div>
+      <div class="involve-card reveal">
+        <div class="involve-icon">🔬</div>
+        <h3>Citizen Science</h3>
+        <p>Contribute to real research by reporting marine sightings, water quality data, and coastal observations via our mobile platform.</p>
+        <a href="#" class="involve-link">Start Reporting</a>
+      </div>
+      <div class="involve-card reveal">
+        <div class="involve-icon">📢</div>
+        <h3>Advocate</h3>
+        <p>Use your voice where it matters. Contact your representatives, sign active petitions, and amplify our ocean policy campaigns.</p>
+        <a href="#" class="involve-link">View Campaigns</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="donate-section" id="donate">
+  <div class="container">
+    <div class="donate-inner">
+      <div class="reveal">
+        <span class="eyebrow">Donate</span>
+        <h2 class="section-title">Fund the<br><em>Blue</em></h2>
+        <p class="section-body">96 cents of every dollar goes directly to conservation programs, field research, and ocean education. Your gift is fully tax-deductible.</p>
+        <div class="donate-seals">
+          <span class="seal">501(c)(3) Nonprofit</span>
+          <span class="seal">★★★★ Charity Navigator</span>
+          <span class="seal">GuideStar Gold</span>
+          <span class="seal">BBB Accredited</span>
+        </div>
+      </div>
+      <div class="donate-form reveal">
+        <h3>Make a Gift</h3>
+        <div class="freq-toggle">
+          <button class="freq-btn" onclick="setFreq(this)">One-time</button>
+          <button class="freq-btn active" onclick="setFreq(this)">Monthly</button>
+          <button class="freq-btn" onclick="setFreq(this)">Annually</button>
+        </div>
+        <div class="amount-grid">
+          <button class="amt-btn" onclick="setAmt(this)">$25</button>
+          <button class="amt-btn active" onclick="setAmt(this)">$50</button>
+          <button class="amt-btn" onclick="setAmt(this)">$100</button>
+          <button class="amt-btn" onclick="setAmt(this)">$250</button>
+        </div>
+        <input type="text" class="custom-input" placeholder="Or enter a custom amount ($)">
+        <button class="donate-submit">Donate Securely →</button>
+        <p class="donate-note">🔒 Secured by Stripe · 256-bit SSL encryption</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href="#" class="footer-brand-logo">Del <span>Sun</span></a>
+        <p>A 501(c)(3) nonprofit ocean conservatory committed to protecting marine ecosystems, restoring biodiversity, and inspiring a global community of ocean stewards.</p>
+        <div class="footer-social">
+          <a href="#" class="fsocial">𝕏</a>
+          <a href="#" class="fsocial">in</a>
+          <a href="#" class="fsocial">ig</a>
+          <a href="#" class="fsocial">yt</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Programs</h5>
+        <ul>
+          <li><a href="#">Deep Blue Research</a></li>
+          <li><a href="#">Reef Restoration</a></li>
+          <li><a href="#">Plastic-Free Shores</a></li>
+          <li><a href="#">Species Protection</a></li>
+          <li><a href="#">Climate Monitoring</a></li>
+          <li><a href="#">Youth Education</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Organization</h5>
+        <ul>
+          <li><a href="#">About Del Sun</a></li>
+          <li><a href="#">Leadership Team</a></li>
+          <li><a href="#">Annual Reports</a></li>
+          <li><a href="#">Financials</a></li>
+          <li><a href="#">Press Room</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Connect</h5>
+        <ul>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Newsletter</a></li>
+          <li><a href="#">Corporate Giving</a></li>
+          <li><a href="#">Planned Giving</a></li>
+          <li><a href="#">Volunteer Portal</a></li>
+          <li><a href="#">Partner With Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Del Sun Ocean Conservatory. All rights reserved. EIN: 47-1234567</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Cookie Preferences</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const siblings = [...e.target.parentElement.querySelectorAll('.reveal:not(.in)')];
+      const idx = siblings.indexOf(e.target);
+      setTimeout(() => e.target.classList.add('in'), Math.max(0, idx) * 90);
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+function setAmt(btn) { document.querySelectorAll('.amt-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+function setFreq(btn) { document.querySelectorAll('.freq-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+
+const nav = document.querySelector('.nav');
+window.addEventListener('scroll', () => { nav.style.boxShadow = window.scrollY > 10 ? '0 2px 20px rgba(0,0,0,.07)' : 'none'; });
+</script>
+</body>
+</html>
